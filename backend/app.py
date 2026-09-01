@@ -1,9 +1,15 @@
+import os
+import sys
+
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask import Flask, jsonify, request
 from database import get_connection
 
 from flask_cors import CORS
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from optimizer_example import find_cheapest
 
 app = Flask(__name__)
 CORS(app)
@@ -55,6 +61,26 @@ def get_fees():
     return jsonify([dict(row) for row in rows])
 
 
+@app.route("/api/find-cheapest")
+def api_find_cheapest():
+    from_currency = request.args.get("from")
+    to_currency = request.args.get("to")
+    amount = request.args.get("amount")
+
+    if not from_currency or not to_currency or not amount:
+        return jsonify({"error": "from, to, and amount are required"}), 400
+
+    try:
+        amount = float(amount)
+    except ValueError:
+        return jsonify({"error": "amount must be a number"}), 400
+
+    if amount <= 0:
+        return jsonify({"error": "amount must be positive"}), 400
+
+    return jsonify(find_cheapest(from_currency, to_currency, amount))
+
+
 @app.route("/api/register", methods=["POST"])
 def register():
     data = request.get_json()
@@ -101,4 +127,6 @@ def login():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # threaded=True: /api/find-cheapest calls back into this same server over HTTP,
+    # so the dev server must be able to serve a second request while the first is still open.
+    app.run(debug=True, threaded=True)

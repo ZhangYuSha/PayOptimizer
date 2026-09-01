@@ -107,6 +107,40 @@ Flat fee per provider.
 ]
 ```
 
+### `GET /api/find-cheapest?from=MYR&to=USD&amount=1000`
+Compares all providers for a currency conversion and returns them ranked by amount received, plus the best option and estimated savings.
+
+**Query params:** `from`, `to`, `amount` (all required)
+
+**Response:**
+```json
+{
+  "from_currency": "MYR",
+  "to_currency": "USD",
+  "amount": 1000.0,
+  "options": [
+    { "provider": "Provider A", "rate": 0.234, "fee": 5.0, "received": 232.83 },
+    { "provider": "Provider B", "rate": 0.231, "fee": 2.0, "received": 230.54 }
+  ],
+  "best_option": { "provider": "Provider A", "rate": 0.234, "fee": 5.0, "received": 232.83 },
+  "estimated_savings": 2.29
+}
+```
+
+If no exchange rate data exists for the currency pair, `options` is empty and `best_option` is `null` instead of an error:
+```json
+{
+  "from_currency": "MYR",
+  "to_currency": "JPY",
+  "amount": 1000.0,
+  "options": [],
+  "best_option": null,
+  "estimated_savings": 0
+}
+```
+
+**Response (400):** `from`, `to`, or `amount` missing, or `amount` is not a number.
+
 ### `POST /api/register`
 Register a new user. Password is hashed before storage (never stored as plain text).
 
