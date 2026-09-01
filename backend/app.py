@@ -3,7 +3,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, jsonify, request
 from database import get_connection
 
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/api/test")
@@ -23,6 +26,9 @@ def get_providers():
 def get_exchange_rates():
     from_currency = request.args.get("from")
     to_currency = request.args.get("to")
+
+    if not from_currency or not to_currency:
+        return jsonify({"error": "from and to are required"}), 400
 
     conn = get_connection()
     query = """
