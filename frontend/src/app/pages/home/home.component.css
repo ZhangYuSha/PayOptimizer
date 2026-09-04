@@ -1,0 +1,415 @@
+.home-page {
+  min-height: 100vh;
+  background: #ffffff;
+  color: #111111;
+}
+
+
+/* =========================
+   NAVBAR
+   ========================= */
+
+.navbar {
+  height: 72px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eeeeee;
+  background: #ffffff;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-link {
+  border: none;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #333333;
+  padding: 8px 0;
+}
+
+.nav-link:hover {
+  color: #000000;
+}
+
+.register-button {
+  border: none;
+  background: #111111;
+  color: #ffffff;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  background: #333333;
+}
+
+
+/* =========================
+   HERO
+   ========================= */
+
+.hero {
+  min-height: 650px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 7%;
+  box-sizing: border-box;
+}
+
+.hero-content {
+  max-width: 900px;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid #dddddd;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(48px, 7vw, 82px);
+  line-height: 0.98;
+  letter-spacing: -4px;
+  font-weight: 800;
+}
+
+.hero h1 span {
+  display: block;
+  color: #555555;
+}
+
+.hero-description {
+  max-width: 650px;
+  margin: 30px auto;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #666666;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 35px;
+  flex-wrap: wrap;
+}
+
+.primary-button {
+  border: none;
+  background: #111111;
+  color: #ffffff;
+  padding: 15px 24px;
+  border-radius: 9px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-button span {
+  margin-left: 8px;
+}
+
+.primary-button:hover {
+  background: #333333;
+}
+
+.secondary-button {
+  border: 1px solid #dddddd;
+  background: #ffffff;
+  color: #111111;
+  padding: 15px 24px;
+  border-radius: 9px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.secondary-button:hover {
+  background: #f7f7f7;
+}
+
+.example-text {
+  margin-top: 25px;
+  font-size: 13px;
+  color: #888888;
+}
+
+.example-text strong {
+  color: #555555;
+}
+
+
+/* =========================
+   HOW IT WORKS
+   ========================= */
+
+.how-it-works {
+  padding: 100px 7%;
+  background: #f7f7f7;
+}
+
+.section-header {
+  max-width: 700px;
+  margin: 0 auto 55px;
+  text-align: center;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #777777;
+  margin-bottom: 15px;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 42px;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+}
+
+.section-header p {
+  margin-top: 18px;
+  color: #777777;
+  line-height: 1.6;
+}
+
+.steps {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.step-card {
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 16px;
+  padding: 30px;
+}
+
+.step-number {
+  font-size: 13px;
+  color: #999999;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.step-card h3 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+.step-card p {
+  margin: 0;
+  color: #777777;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   AI SECTION
+   ========================= */
+
+.ai-section {
+  padding: 100px 7%;
+}
+
+.ai-card {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 60px;
+  border-radius: 24px;
+  background: #111111;
+  color: #ffffff;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.ai-content h2 {
+  margin: 0;
+  font-size: 44px;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+}
+
+.ai-content p {
+  margin: 22px 0 30px;
+  color: #bbbbbb;
+  line-height: 1.7;
+}
+
+.ai-content .section-label {
+  color: #999999;
+}
+
+.ai-content .primary-button {
+  background: #ffffff;
+  color: #111111;
+}
+
+.ai-content .primary-button:hover {
+  background: #eeeeee;
+}
+
+
+/* =========================
+   AI EXAMPLE
+   ========================= */
+
+.ai-example {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chat-message {
+  padding: 18px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.user-message {
+  align-self: flex-end;
+  max-width: 85%;
+  background: #333333;
+  color: #eeeeee;
+}
+
+.ai-message {
+  background: #ffffff;
+  color: #111111;
+}
+
+.ai-title {
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.recommendation {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.recommendation div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.recommendation div:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.recommendation span {
+  color: #777777;
+}
+
+.recommendation strong {
+  text-align: right;
+}
+
+
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+  padding: 35px 7%;
+  border-top: 1px solid #eeeeee;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: #777777;
+  font-size: 13px;
+}
+
+footer div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+footer strong {
+  color: #111111;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 800px) {
+
+  .navbar {
+    padding: 0 5%;
+  }
+
+  .nav-links {
+    gap: 14px;
+  }
+
+  .nav-link {
+    display: none;
+  }
+
+  .hero {
+    padding: 60px 5%;
+  }
+
+  .hero h1 {
+    letter-spacing: -2px;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-card {
+    grid-template-columns: 1fr;
+    padding: 35px;
+    gap: 40px;
+  }
+
+  .ai-content h2 {
+    font-size: 35px;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+
+}

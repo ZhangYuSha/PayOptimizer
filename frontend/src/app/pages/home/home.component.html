@@ -1,0 +1,277 @@
+<div class="home-page">
+
+  <!-- Navigation -->
+  <nav class="navbar">
+
+    <div class="logo">
+      Pay Optimizer
+    </div>
+
+    <div class="nav-links">
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToCompare()"
+      >
+        Compare
+      </button>
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToAI()"
+      >
+        AI Optimizer
+      </button>
+
+      <button
+        type="button"
+        class="nav-link"
+        (click)="goToLogin()"
+      >
+        Login
+      </button>
+
+      <button
+        type="button"
+        class="register-button"
+        (click)="goToRegister()"
+      >
+        Get Started
+      </button>
+    </div>
+
+  </nav>
+
+
+  <!-- Hero Section -->
+  <main>
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <div class="badge">
+          AI-Powered Money Movement
+        </div>
+
+        <h1>
+          Move your money
+          <span>smarter.</span>
+        </h1>
+
+        <p class="hero-description">
+          Tell Pay Optimizer what you want to pay,
+          and our AI finds the most cost-effective
+          payment route and timing before your deadline.
+        </p>
+
+        <div class="hero-actions">
+
+          <button
+            type="button"
+            class="primary-button"
+            (click)="goToAI()"
+          >
+            Try AI Optimizer
+            <span>→</span>
+          </button>
+
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="goToCompare()"
+          >
+            Compare Payment Methods
+          </button>
+
+        </div>
+
+        <p class="example-text">
+          Try:
+          <strong>
+            "Send RM1000 to USD by 15 September. Find the cheapest option."
+          </strong>
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+
+      <div class="section-header">
+
+        <div class="section-label">
+          HOW IT WORKS
+        </div>
+
+        <h2>
+          One request. The optimal payment route.
+        </h2>
+
+        <p>
+          Pay Optimizer turns your payment intent into
+          an optimized money-movement plan.
+        </p>
+
+      </div>
+
+
+      <div class="steps">
+
+        <div class="step-card">
+
+          <div class="step-number">
+            01
+          </div>
+
+          <h3>
+            Tell us what you need
+          </h3>
+
+          <p>
+            Describe your payment naturally.
+            Include the amount, destination and deadline.
+          </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+          <div class="step-number">
+            02
+          </div>
+
+          <h3>
+            AI finds the best route
+          </h3>
+
+          <p>
+            Pay Optimizer evaluates fees, exchange rates,
+            processing time and your deadline.
+          </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+          <div class="step-number">
+            03
+          </div>
+
+          <h3>
+            Approve and pay
+          </h3>
+
+          <p>
+            Review the recommendation and approve
+            the optimized payment through Sui.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- AI CTA -->
+    <section class="ai-section">
+
+      <div class="ai-card">
+
+        <div class="ai-content">
+
+          <div class="section-label">
+            AI MONEY-MOVEMENT AGENT
+          </div>
+
+          <h2>
+            Stop choosing payment methods.
+            Let AI optimize them.
+          </h2>
+
+          <p>
+            Pay Optimizer understands your payment intent,
+            finds the cheapest route and identifies the best
+            time to make the payment before your deadline.
+          </p>
+
+          <button
+            type="button"
+            class="primary-button"
+            (click)="goToAI()"
+          >
+            Open AI Optimizer
+            <span>→</span>
+          </button>
+
+        </div>
+
+
+        <div class="ai-example">
+
+          <div class="chat-message user-message">
+            Send RM1,000 to USD by
+            15 September at 5PM.
+            Find the cheapest option.
+          </div>
+
+          <div class="chat-message ai-message">
+
+            <div class="ai-title">
+              ✓ Optimized payment
+            </div>
+
+            <div class="recommendation">
+
+              <div>
+                <span>Provider</span>
+                <strong>Wise</strong>
+              </div>
+
+              <div>
+                <span>Best time</span>
+                <strong>Sep 12 · 10:00 AM</strong>
+              </div>
+
+              <div>
+                <span>Expected received</span>
+                <strong>$235.40</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- Footer -->
+  <footer>
+
+    <div>
+      <strong>Pay Optimizer</strong>
+      <span>
+        AI-powered money movement on Sui.
+      </span>
+    </div>
+
+    <div>
+      Built for Sui Hackathon 2026
+    </div>
+
+  </footer>
+
+</div>
