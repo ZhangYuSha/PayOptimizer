@@ -1,0 +1,430 @@
+<div class="ai-page">
+
+  <div class="ai-container">
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+      <div class="badge">
+        SUI MONEY MOVEMENT
+      </div>
+
+      <h1>
+        AI Payment Optimizer
+      </h1>
+
+      <p>
+        Tell the agent where, when and how much
+        you want to move. It finds the optimal
+        payment route before your deadline.
+      </p>
+
+    </div>
+
+
+    <!-- WALLET -->
+
+    <div class="wallet-section">
+
+      <h2>
+        Sui Wallet
+      </h2>
+
+      <app-sui-wallet />
+
+    </div>
+
+
+    <!-- AI INPUT -->
+
+    <div class="ai-card">
+
+      <label for="message">
+
+        Payment request
+
+      </label>
+
+
+      <textarea
+        id="message"
+        [(ngModel)]="message"
+        rows="5"
+        placeholder="Example: Send RM1000 to USD by 2026-09-15 17:00"
+      ></textarea>
+
+
+      <div
+        *ngIf="errorMessage"
+        class="error"
+      >
+
+        {{ errorMessage }}
+
+      </div>
+
+
+      <button
+        class="optimize-button"
+        (click)="optimize()"
+        [disabled]="loading"
+      >
+
+        <span *ngIf="!loading">
+          🤖 Find Optimal Payment
+        </span>
+
+        <span *ngIf="loading">
+          Optimizing...
+        </span>
+
+      </button>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div
+      *ngIf="result"
+      class="result"
+    >
+
+
+      <!-- INTENT -->
+
+      <div class="intent-card">
+
+        <h2>
+          AI understood
+        </h2>
+
+
+        <div class="intent-grid">
+
+          <div>
+
+            <span>
+              Amount
+            </span>
+
+            <strong>
+              RM{{ result.intent.amount }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              From
+            </span>
+
+            <strong>
+              {{ result.intent.from }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              To
+            </span>
+
+            <strong>
+              {{ result.intent.to }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Deadline
+            </span>
+
+            <strong>
+              {{ result.intent.deadline }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- RECOMMENDATION -->
+
+      <div class="recommendation">
+
+        <div class="recommendation-header">
+
+          <span>
+            🤖 AI RECOMMENDATION
+          </span>
+
+        </div>
+
+
+        <h2>
+
+          {{ result.recommendation.provider }}
+
+        </h2>
+
+
+        <div class="recommendation-grid">
+
+
+          <div>
+
+            <span>
+              Best time
+            </span>
+
+            <strong>
+              {{ result.recommendation.scheduled_time }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Expected completion
+            </span>
+
+            <strong>
+              {{ result.recommendation.completion_time }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Expected received
+            </span>
+
+            <strong>
+
+              {{ result.recommendation.received }}
+
+              {{ result.intent.to }}
+
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Exchange rate
+            </span>
+
+            <strong>
+              {{ result.recommendation.rate }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Fee
+            </span>
+
+            <strong>
+
+              {{ result.recommendation.fee }}
+
+              {{ result.intent.from }}
+
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Processing
+            </span>
+
+            <strong>
+
+              {{ result.recommendation.processing_hours }}
+
+              hours
+
+            </strong>
+
+          </div>
+
+
+        </div>
+
+
+        <div class="reason">
+
+          <strong>
+            Why this route?
+          </strong>
+
+          <p>
+            {{ result.reason }}
+          </p>
+
+        </div>
+
+
+        <!-- SUI EXECUTION -->
+
+        <div class="sui-execution">
+
+          <h3>
+            Execute through Sui
+          </h3>
+
+
+          <p>
+
+            Your wallet can now approve
+            the on-chain payment.
+
+          </p>
+
+
+          <button
+
+            (click)="executeSuiPayment()"
+
+            [disabled]="paying"
+
+          >
+
+            <span *ngIf="!paying">
+              ⚡ Execute Sui Testnet Payment
+            </span>
+
+            <span *ngIf="paying">
+              Waiting for wallet...
+            </span>
+
+          </button>
+
+
+          <div
+            *ngIf="transactionDigest"
+            class="transaction-success"
+          >
+
+            <strong>
+              ✓ Transaction confirmed
+            </strong>
+
+
+            <p>
+              Digest:
+            </p>
+
+
+            <code>
+              {{ transactionDigest }}
+            </code>
+
+
+            <a
+              [href]="
+                'https://suiscan.xyz/testnet/tx/' +
+                transactionDigest
+              "
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+
+              View on Sui Explorer →
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ALTERNATIVES -->
+
+      <div class="alternatives">
+
+        <h2>
+          Alternative routes
+        </h2>
+
+
+        <div
+          *ngFor="
+            let option
+            of result.alternatives
+          "
+          class="option"
+        >
+
+          <div>
+
+            <strong>
+              {{ option.provider }}
+            </strong>
+
+            <span>
+              {{ option.scheduled_time }}
+            </span>
+
+          </div>
+
+
+          <div>
+
+            Receive:
+
+            <strong>
+
+              {{ option.received }}
+
+              {{ result.intent.to }}
+
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            Fee:
+
+            {{ option.fee }}
+
+            {{ result.intent.from }}
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
