@@ -1,0 +1,53 @@
+<div class="wallet-box">
+
+  <div class="wallet-host"></div>
+
+
+  <div
+    *ngIf="accountAddress"
+    class="wallet-info"
+  >
+
+    <div class="wallet-status">
+
+      <span class="status-dot"></span>
+
+      <span>
+        Connected
+      </span>
+
+    </div>
+
+
+    <div class="wallet-details">
+
+      <div class="wallet-item">
+
+        <span class="label">
+          Wallet
+        </span>
+
+        <strong>
+          {{ walletName }}
+        </strong>
+
+      </div>
+
+
+      <div class="wallet-item">
+
+        <span class="label">
+          Address
+        </span>
+
+        <code>
+          {{ accountAddress }}
+        </code>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
