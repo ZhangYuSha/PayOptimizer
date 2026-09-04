@@ -1,0 +1,64 @@
+<nav class="navbar">
+
+  <div class="navbar-container">
+
+    <a
+      routerLink="/"
+      class="logo"
+    >
+      💸 PayOptimizer
+    </a>
+
+
+    <div class="nav-links">
+
+      <a routerLink="/">
+        Home
+      </a>
+
+      <a routerLink="/compare">
+        Compare
+      </a>
+
+
+      <ng-container *ngIf="!user">
+
+        <a
+          routerLink="/login"
+          class="login-link"
+        >
+          Sign In
+        </a>
+
+        <a
+          routerLink="/register"
+          class="register-button"
+        >
+          Get Started
+        </a>
+
+      </ng-container>
+
+
+      <ng-container *ngIf="user">
+
+        <span class="welcome">
+
+          Hi, {{ user.name }}
+
+        </span>
+
+        <button
+          class="logout-button"
+          (click)="logout()"
+        >
+          Logout
+        </button>
+
+      </ng-container>
+
+    </div>
+
+  </div>
+
+</nav>
