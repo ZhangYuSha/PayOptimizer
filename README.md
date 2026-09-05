@@ -13,11 +13,13 @@ This is a **university prototype/demo**, not a production financial application.
 
 - Python 3.8+
 - pip
+- Node.js 20.19+ / 22.12+ and npm (for the `frontend/` Angular app)
 
 ## Setup
 
+All commands below are run from the **repository root** (the folder this README is in — there is no `pay-optimizer/` subfolder to `cd` into).
+
 ```bash
-cd pay-optimizer
 pip install -r requirements.txt
 ```
 
@@ -44,15 +46,49 @@ If you only change code (not the database), you just need step 3 again. Re-run s
 
 ---
 
+## Running Tests
+
+`requirements.txt` only lists runtime dependencies, so `pytest` isn't installed by the `pip install` step above — install it separately the first time:
+
+```bash
+pip install pytest
+```
+
+Then, from the repository root:
+
+```bash
+pytest test_app.py test_optimizer.py
+```
+
+---
+
+## Frontend (Angular)
+
+The Angular app lives in `frontend/`. In a separate terminal, from the repository root:
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+`npm start` runs `ng serve`, available at `http://localhost:4200/`. It calls the backend at `http://127.0.0.1:5000`, so the backend (see **Run Order** above) needs to be running too.
+
+---
+
 ## Project Structure
 
 ```
-pay-optimizer/
+./
 ├── backend/
-│   ├── app.py          # Flask app + all API routes
-│   ├── database.py     # Creates data.db and the 4 tables
-│   ├── seed_data.py     # Inserts demo providers/rates/fees
-│   └── data.db          # Created after running database.py (not committed to git)
+│   ├── app.py             # Flask app + all API routes
+│   ├── database.py        # Creates data.db and the users table
+│   ├── seed_data.py       # Inserts demo providers/rates/fees (legacy tables, unused by app.py)
+│   └── data.db             # Created after running database.py (not committed to git)
+├── frontend/               # Angular app (see Frontend section above)
+├── test_app.py             # Backend API tests (pytest)
+├── test_optimizer.py       # optimizer_example.py tests (pytest)
+├── optimizer_example.py
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -69,7 +105,7 @@ Health check.
 
 **Response:**
 ```json
-{ "message": "Pay Optimizer backend is working!" }
+{ "message": "Pay Optimizer backend is working" }
 ```
 
 ### `GET /api/providers`
@@ -78,39 +114,44 @@ List of all providers.
 **Response:**
 ```json
 [
-  { "id": 1, "name": "Provider A" },
-  { "id": 2, "name": "Provider B" }
+  { "id": 1, "name": "Visa" },
+  { "id": 2, "name": "Mastercard" },
+  { "id": 3, "name": "Touch 'n Go" },
+  { "id": 4, "name": "Wise" },
+  { "id": 5, "name": "Sui" }
 ]
 ```
 
 ### `GET /api/exchange-rates?from=MYR&to=USD`
-Exchange rates for a currency pair, across all providers.
-
-**Query params:** `from`, `to` (both required)
+Exchange rate per provider for a currency pair, keyed by provider name. `from`/`to` default to `MYR`/`USD` if omitted. Only `MYR` to `USD` currently returns real data; any other pair returns `{}`.
 
 **Response:**
 ```json
-[
-  { "provider": "Provider A", "rate": 0.234 },
-  { "provider": "Provider B", "rate": 0.231 }
-]
+{
+  "Visa": 0.2325,
+  "Mastercard": 0.233,
+  "Touch 'n Go": 0.23,
+  "Wise": 0.235,
+  "Sui": 0.234
+}
 ```
 
 ### `GET /api/fees`
-Flat fee per provider.
+Flat fee per provider, keyed by provider name.
 
 **Response:**
 ```json
-[
-  { "provider": "Provider A", "fee": 5 },
-  { "provider": "Provider B", "fee": 2 }
-]
+{
+  "Visa": 8.0,
+  "Mastercard": 7.0,
+  "Touch 'n Go": 5.0,
+  "Wise": 3.5,
+  "Sui": 0.2
+}
 ```
 
 ### `GET /api/find-cheapest?from=MYR&to=USD&amount=1000`
-Compares all providers for a currency conversion and returns them ranked by amount received, plus the best option and estimated savings.
-
-**Query params:** `from`, `to`, `amount` (all required)
+Compares all providers for a currency conversion and returns them ranked by amount received, plus the best option and estimated savings. `from`/`to` default to `MYR`/`USD` if omitted.
 
 **Response:**
 ```json
@@ -119,15 +160,18 @@ Compares all providers for a currency conversion and returns them ranked by amou
   "to_currency": "USD",
   "amount": 1000.0,
   "options": [
-    { "provider": "Provider A", "rate": 0.234, "fee": 5.0, "received": 232.83 },
-    { "provider": "Provider B", "rate": 0.231, "fee": 2.0, "received": 230.54 }
+    { "provider": "Wise", "rate": 0.235, "fee": 3.5, "received": 234.18, "processing_hours": 12 },
+    { "provider": "Sui", "rate": 0.234, "fee": 0.2, "received": 233.95, "processing_hours": 1 },
+    { "provider": "Mastercard", "rate": 0.233, "fee": 7.0, "received": 231.37, "processing_hours": 24 },
+    { "provider": "Visa", "rate": 0.2325, "fee": 8.0, "received": 230.64, "processing_hours": 24 },
+    { "provider": "Touch 'n Go", "rate": 0.23, "fee": 5.0, "received": 228.85, "processing_hours": 12 }
   ],
-  "best_option": { "provider": "Provider A", "rate": 0.234, "fee": 5.0, "received": 232.83 },
-  "estimated_savings": 2.29
+  "best_option": { "provider": "Wise", "rate": 0.235, "fee": 3.5, "received": 234.18, "processing_hours": 12 },
+  "estimated_savings": 0.23
 }
 ```
 
-If no exchange rate data exists for the currency pair, `options` is empty and `best_option` is `null` instead of an error:
+If no exchange rate data exists for the currency pair (i.e. anything other than `MYR` to `USD`), `options` is empty and `best_option` is `null` instead of an error:
 ```json
 {
   "from_currency": "MYR",
@@ -139,7 +183,7 @@ If no exchange rate data exists for the currency pair, `options` is empty and `b
 }
 ```
 
-**Response (400):** `from`, `to`, or `amount` missing, or `amount` is not a number.
+**Response (400):** `amount` missing, not a number, or not greater than zero.
 
 ### `POST /api/register`
 Register a new user. Password is hashed before storage (never stored as plain text).
@@ -175,12 +219,15 @@ Log in an existing user.
 
 ## Demo Data
 
-The seeded data (via `seed_data.py`) is for demonstration only:
+The provider rates/fees returned by the API come from `PROVIDER_CONFIG` in `backend/app.py` (not from the database) and are for demonstration only, MYR → USD:
 
-- **Provider A** — MYR → USD @ rate 0.234, fee 5 MYR
-- **Provider B** — MYR → USD @ rate 0.231, fee 2 MYR
+- **Visa** — rate 0.2325, fee 8.00 MYR, ~24h processing
+- **Mastercard** — rate 0.2330, fee 7.00 MYR, ~24h processing
+- **Touch 'n Go** — rate 0.2300, fee 5.00 MYR, ~12h processing
+- **Wise** — rate 0.2350, fee 3.50 MYR, ~12h processing
+- **Sui** — rate 0.2340, fee 0.20 MYR, ~1h processing
 
-This is **not** real-time financial data.
+Rates fluctuate slightly over time via a simulated market model. This is **not** real-time financial data.
 
 ---
 
