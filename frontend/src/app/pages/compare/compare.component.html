@@ -1,0 +1,351 @@
+<div class="compare-page">
+
+  <div class="compare-container">
+
+    <!-- Header -->
+    <div class="page-header">
+
+      <div class="badge">
+        PAYMENT OPTIMIZER
+      </div>
+
+      <h1>
+        Compare Payment Options
+      </h1>
+
+      <p>
+        Find the provider that gives you
+        the best value for your money.
+      </p>
+
+    </div>
+
+
+    <!-- Input Card -->
+    <div class="compare-card">
+
+      <form
+        (ngSubmit)="compare()"
+      >
+
+        <div class="form-row">
+
+          <!-- From currency -->
+          <div class="form-group">
+
+            <label for="fromCurrency">
+              From
+            </label>
+
+            <select
+              id="fromCurrency"
+              name="fromCurrency"
+              [(ngModel)]="fromCurrency"
+            >
+
+              <option value="MYR">
+                MYR
+              </option>
+
+              <option value="USD">
+                USD
+              </option>
+
+              <option value="JPY">
+                JPY
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- To currency -->
+          <div class="form-group">
+
+            <label for="toCurrency">
+              To
+            </label>
+
+            <select
+              id="toCurrency"
+              name="toCurrency"
+              [(ngModel)]="toCurrency"
+            >
+
+              <option value="USD">
+                USD
+              </option>
+
+              <option value="MYR">
+                MYR
+              </option>
+
+              <option value="JPY">
+                JPY
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- Amount -->
+        <div class="form-group">
+
+          <label for="amount">
+            Amount
+          </label>
+
+          <input
+            id="amount"
+            type="number"
+            name="amount"
+            [(ngModel)]="amount"
+            placeholder="Enter amount"
+            min="0"
+            step="0.01"
+          >
+
+        </div>
+
+
+        <!-- Error -->
+        <div
+          *ngIf="errorMessage"
+          class="error"
+        >
+
+          {{ errorMessage }}
+
+        </div>
+
+
+        <!-- Compare button -->
+        <button
+          type="submit"
+          class="compare-button"
+          [disabled]="loading"
+        >
+
+          <span *ngIf="!loading">
+            Find Cheapest Option
+          </span>
+
+          <span *ngIf="loading">
+            Comparing...
+          </span>
+
+        </button>
+
+      </form>
+
+    </div>
+
+
+    <!-- Results -->
+    <div
+      *ngIf="result"
+      class="results"
+    >
+
+      <!-- Best option -->
+      <div
+        *ngIf="result.best_option"
+        class="best-option"
+      >
+
+        <div class="best-badge">
+          🏆 BEST OPTION
+        </div>
+
+        <h2>
+          {{ result.best_option.provider }}
+        </h2>
+
+        <p class="best-description">
+          This provider gives you the highest
+          estimated amount received.
+        </p>
+
+
+        <div class="best-details">
+
+          <div class="best-detail">
+
+            <span>
+              You send
+            </span>
+
+            <strong>
+              {{ result.amount }}
+              {{ result.from_currency }}
+            </strong>
+
+          </div>
+
+
+          <div class="best-detail">
+
+            <span>
+              You receive
+            </span>
+
+            <strong>
+              {{ result.best_option.received }}
+              {{ result.to_currency }}
+            </strong>
+
+          </div>
+
+
+          <div class="best-detail">
+
+            <span>
+              Estimated savings
+            </span>
+
+            <strong>
+              {{ result.estimated_savings }}
+              {{ result.to_currency }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- No best option -->
+      <div
+        *ngIf="!result.best_option"
+        class="no-results"
+      >
+
+        <h2>
+          No Options Found
+        </h2>
+
+        <p>
+          No exchange rate data is available
+          for this currency pair.
+        </p>
+
+      </div>
+
+
+      <!-- Provider comparison -->
+      <div
+        *ngIf="
+          result.options &&
+          result.options.length > 0
+        "
+        class="options"
+      >
+
+        <div class="section-header">
+
+          <h2>
+            All Payment Options
+          </h2>
+
+          <p>
+            Compare exchange rates, fees and
+            the amount you receive.
+          </p>
+
+        </div>
+
+
+        <div class="option-grid">
+
+          <div
+            *ngFor="
+              let option of result.options
+            "
+            class="option-card"
+            [class.option-best]="
+              result.best_option &&
+              option.provider ===
+                result.best_option.provider
+            "
+          >
+
+            <div class="option-header">
+
+              <h3>
+                {{ option.provider }}
+              </h3>
+
+              <span
+                *ngIf="
+                  result.best_option &&
+                  option.provider ===
+                    result.best_option.provider
+                "
+                class="recommended"
+              >
+                Best
+              </span>
+
+            </div>
+
+
+            <div class="option-details">
+
+              <div class="option-row">
+
+                <span>
+                  Exchange Rate
+                </span>
+
+                <strong>
+                  {{ option.rate }}
+                </strong>
+
+              </div>
+
+
+              <div class="option-row">
+
+                <span>
+                  Fee
+                </span>
+
+                <strong>
+                  {{ option.fee }}
+                  {{ result.from_currency }}
+                </strong>
+
+              </div>
+
+
+              <div class="option-row receive-row">
+
+                <span>
+                  You Receive
+                </span>
+
+                <strong>
+                  {{ option.received }}
+                  {{ result.to_currency }}
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

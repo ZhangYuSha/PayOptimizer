@@ -1,0 +1,239 @@
+.ai-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: #f7f8fa;
+}
+
+.ai-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 42px;
+  margin: 10px 0;
+}
+
+.page-header p {
+  color: #666;
+  font-size: 17px;
+  max-width: 700px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 7px 12px;
+  border-radius: 20px;
+  background: #111;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.wallet-section {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+
+.wallet-section h2 {
+  margin-top: 0;
+}
+
+.ai-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+}
+
+.ai-card label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.ai-card textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 16px;
+  resize: vertical;
+}
+
+.optimize-button {
+  margin-top: 20px;
+  padding: 15px 24px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.optimize-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff0f0;
+  color: #c62828;
+}
+
+.result {
+  margin-top: 25px;
+}
+
+.intent-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+
+.intent-card h2 {
+  margin-top: 0;
+}
+
+.intent-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.intent-grid div,
+.recommendation-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.intent-grid span,
+.recommendation-grid span {
+  color: #777;
+  font-size: 13px;
+}
+
+.recommendation {
+  padding: 30px;
+  border-radius: 18px;
+  background: white;
+  border: 2px solid #111;
+}
+
+.recommendation-header {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.recommendation h2 {
+  font-size: 32px;
+  margin: 12px 0 25px;
+}
+
+.recommendation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.reason {
+  margin-top: 25px;
+  padding: 18px;
+  border-radius: 12px;
+  background: #f5f5f5;
+}
+
+.reason p {
+  margin-bottom: 0;
+}
+
+.sui-execution {
+  margin-top: 25px;
+  padding: 25px;
+  border-radius: 14px;
+  background: #111;
+  color: white;
+}
+
+.sui-execution h3 {
+  margin-top: 0;
+}
+
+.sui-execution button {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.sui-execution button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.transaction-success {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background: #222;
+}
+
+.transaction-success code {
+  display: block;
+  margin: 10px 0;
+  word-break: break-all;
+}
+
+.transaction-success a {
+  color: white;
+}
+
+.alternatives {
+  margin-top: 30px;
+}
+
+.option {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.option div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+@media (max-width: 700px) {
+
+  .intent-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .recommendation-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .option {
+    grid-template-columns: 1fr;
+  }
+
+}
