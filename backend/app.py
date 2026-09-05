@@ -283,7 +283,7 @@ def find_cheapest():
 
         return jsonify({
             "error":
-                "Amount must be greater than zero"
+                "amount must be positive"
         }), 400
 
 
@@ -973,6 +973,19 @@ def ai_optimize():
     best = results[0]
 
 
+    seen_providers = set()
+
+    deduped_results = []
+
+    for r in results:
+
+        if r["provider"] not in seen_providers:
+
+            seen_providers.add(r["provider"])
+
+            deduped_results.append(r)
+
+
     # --------------------------------------------------------
     # AI-LIKE EXPLANATION
     # --------------------------------------------------------
@@ -1022,7 +1035,7 @@ def ai_optimize():
             reason,
 
         "alternatives":
-            results[:5]
+            deduped_results[:5]
 
     })
 
